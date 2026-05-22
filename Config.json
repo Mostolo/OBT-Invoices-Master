@@ -1,0 +1,15 @@
+{
+  "comments": [
+    "here below you can find a list of possible names for the window you open at first",
+    "This way it is easily modified by the user in the Config.json file!"
+  ],
+
+  "WindowName": [
+    "OBT Invoices Master",
+    "Trangugiatore di file",
+    "Assistente di lavoro",
+    "Cosa sto facendo qui?",
+    "Beh che dire, follettini e follettine",
+    "Tu scemina, io paxxerello"
+  ]
+}
