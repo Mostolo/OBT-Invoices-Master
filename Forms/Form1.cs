@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing.Text;
 using System.Text.Json;
 using System.IO;
+using OBT_Invoices_Master.Forms;
 
 namespace OBT_Invoices_Master
 {
@@ -37,5 +38,12 @@ namespace OBT_Invoices_Master
             FolderService.SaveCsv(folder, paths);
         }
         #endregion
+
+        private void btnTestReview_Click(object sender, EventArgs e)
+        {
+            ReviewForm reviewForm = new ReviewForm();
+
+            reviewForm.ShowDialog();
+        }
     }
 }
