@@ -13,67 +13,12 @@ namespace OBT_Invoices_Master.Forms
     {
         private List<Invoice> invoices;
         private int currentIndex = 0;
-        public ReviewForm() //remember to add the list<Invoice> Invoices
+        public bool completed { get; private set; }
+        public ReviewForm(List<Invoice> invoices)
         {
             InitializeComponent();
 
-            List<Invoice> testInvoices = new List<Invoice> //test to understand if this work, REMOVE
-    {
-        new Invoice
-        {
-            Denominazione = "Azienda Rossi S.r.l.",
-            Numero = "123",
-            TipoDocumento = "TD01",
-            MetodoPagamento = "Bonifico",
-            Data = "28/07/2026",
-            ScadenzaPagamento = "28/08/2026",
-            Totale = 1250.00m,
-            Imponibile = 1024.59m,
-            ImportoPagamento = 1250.00m,
-            DataPagamento = null,
-            XmlPath = @"C:\Test\fattura.xml",
-            PdfPath = @"C:\Test\fattura.pdf",
-            PdfName = "fattura.pdf"
-        },
-
-                new Invoice
-        {
-            Denominazione = "Azienda Rossi S.p.a.",
-            Numero = "231",
-            TipoDocumento = "TD01",
-            MetodoPagamento = "Bonifico",
-            Data = "28/07/2026",
-            ScadenzaPagamento = "28/08/2026",
-            Totale = 1250.00m,
-            Imponibile = 1024.59m,
-            ImportoPagamento = 1250.00m,
-            DataPagamento = null,
-            XmlPath = @"C:\Test\fattura.xml",
-            PdfPath = @"C:\Test\fattura.pdf",
-            PdfName = "fattura.pdf"
-        },
-
-                new Invoice
-        {
-            Denominazione = "Azienda Rossi S.q.l.",
-            Numero = "312",
-            TipoDocumento = "TD01",
-            MetodoPagamento = "Bonifico",
-            Data = "28/07/2026",
-            ScadenzaPagamento = "28/08/2026",
-            Totale = 1250.00m,
-            Imponibile = 1024.59m,
-            ImportoPagamento = 1250.00m,
-            DataPagamento = null,
-            XmlPath = @"C:\Test\fattura.xml",
-            PdfPath = @"C:\Test\fattura.pdf",
-            PdfName = "fattura.pdf"
-        }
-
-
-    };
-
-            this.invoices = testInvoices;
+            this.invoices = invoices;
 
             ShowInvoice();
         }
@@ -89,7 +34,9 @@ namespace OBT_Invoices_Master.Forms
             }
             else
             {
+                completed = true;
                 MessageBox.Show("Hai terminato tutte le fatture!", "Complimenti!");
+                //Close(); 
             }
         }
 

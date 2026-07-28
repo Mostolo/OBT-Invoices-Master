@@ -39,11 +39,5 @@ namespace OBT_Invoices_Master
         }
         #endregion
 
-        private void btnTestReview_Click(object sender, EventArgs e)
-        {
-            ReviewForm reviewForm = new ReviewForm();
-
-            reviewForm.ShowDialog();
-        }
     }
 }

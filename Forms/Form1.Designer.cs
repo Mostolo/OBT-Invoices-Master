@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             lblTest = new Label();
-            btnTestReview = new Button();
             SuspendLayout();
             // 
             // lblTest
@@ -41,22 +40,11 @@
             lblTest.TabIndex = 0;
             lblTest.Text = "WIP";
             // 
-            // btnTestReview
-            // 
-            btnTestReview.Location = new Point(310, 81);
-            btnTestReview.Name = "btnTestReview";
-            btnTestReview.Size = new Size(136, 34);
-            btnTestReview.TabIndex = 1;
-            btnTestReview.Text = "Apri revisione";
-            btnTestReview.UseVisualStyleBackColor = true;
-            btnTestReview.Click += btnTestReview_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(btnTestReview);
             Controls.Add(lblTest);
             Name = "Form1";
             Text = "Form1";
@@ -67,6 +55,5 @@
         #endregion
 
         private Label lblTest;
-        private Button btnTestReview;
     }
 }
