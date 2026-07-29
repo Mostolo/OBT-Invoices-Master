@@ -37,6 +37,7 @@ namespace OBT_Invoices_Master.Services
                     PdfService.RenamePdf(invoice);
 
                     File.Move(invoice.PdfPath!, Path.Combine(PdfFolder, invoice.PdfName!));
+                    invoice.PdfPath = Path.Combine(PdfFolder, invoice.PdfName!);
                     File.Move(xmlFile, Path.Combine(XmlFolder, fileName));
                 }
                 catch (Exception ex)

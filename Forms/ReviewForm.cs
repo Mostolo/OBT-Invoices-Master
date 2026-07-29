@@ -1,11 +1,12 @@
-﻿using System;
+﻿using OBT_Invoices_Master.Models;
+using PdfiumViewer; //for now
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using OBT_Invoices_Master.Models;
 
 namespace OBT_Invoices_Master.Forms
 {
@@ -17,8 +18,14 @@ namespace OBT_Invoices_Master.Forms
         public ReviewForm(List<Invoice> invoices)
         {
             InitializeComponent();
-
+            
             this.invoices = invoices;
+
+            if (this.invoices.Count == 0)
+            {
+                MessageBox.Show("La lista delle fatture è vuota!");
+                return;
+            }
 
             ShowInvoice();
         }
@@ -69,7 +76,9 @@ namespace OBT_Invoices_Master.Forms
             txtDataPagamento.Text = invoice.DataPagamento ?? "";
             lblPdfPath.Text = $"PDF: {invoice.PdfPath ?? "Nessun PDF"}";
             lblProgress.Text = $"Fattura {currentIndex + 1} di {invoices.Count}";
-            //to be ordered
+            //to be ordered    
+            pdfViewer.Document = PdfDocument.Load(invoice.PdfPath);
+
         }
 
 
