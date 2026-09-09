@@ -3,8 +3,8 @@
     <Platform Name="Any CPU" />
     <Platform Name="x64" />
   </Configurations>
-  <Project Path="../OBT-Updater/OBT-Updater.csproj" Id="c1b4bfcd-00b8-4053-92bc-6ac8cfcaa287" />
   <Project Path="OBT-Invoices-Master.csproj">
     <Platform Solution="*|x64" Project="x64" />
   </Project>
+  <Project Path="OBT-Updater/OBT-Updater.csproj" />
 </Solution>
