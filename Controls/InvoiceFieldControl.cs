@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
 namespace OBT_Invoices_Master.Controls
@@ -11,6 +12,7 @@ namespace OBT_Invoices_Master.Controls
 
         private Label lblTitle;
         private TextBox txtValue;
+        private string fieldTitle;
 
         public InvoiceFieldControl()
         {
@@ -44,6 +46,24 @@ namespace OBT_Invoices_Master.Controls
 
             this.Controls.Add(txtValue);
             this.Controls.Add(lblTitle);
+        }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string Title
+        {
+            get => fieldTitle;
+            set
+            {
+                fieldTitle = value;
+                lblTitle.Text = value;
+            }
+        }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string Value
+        {
+            get => txtValue.Text;
+            set => txtValue.Text = value;
         }
 
     }
