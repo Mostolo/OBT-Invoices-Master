@@ -31,7 +31,7 @@ try
 
     Console.WriteLine("OBT-Invoice-Master è stato chiuso correttamente!");
 }
-catch { ArgumentException e; }
+catch (ArgumentException)
 {
     Console.WriteLine("\nIl processo OBT-Invoice-Master non esiste più");
 }
