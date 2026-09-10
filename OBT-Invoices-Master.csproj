@@ -26,4 +26,9 @@
     <PackageReference Include="PdfiumViewer.Forms" Version="3.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+	<Compile Remove="OBT-Updater\**\*.cs" />
+  </ItemGroup>
+
+	
 </Project>

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "OBT-Updater": {
+      "commandName": "Project",
+      "commandLineArgs": "\"pippo.zip\" \"C:\\FintaCartella\" \"41888\" \"finto.exe\""
+    }
+  }
+}
