@@ -34,11 +34,11 @@
             // lblTest
             // 
             lblTest.AutoSize = true;
-            lblTest.Location = new Point(202, 61);
+            lblTest.Location = new Point(356, 38);
             lblTest.Name = "lblTest";
-            lblTest.Size = new Size(59, 25);
+            lblTest.Size = new Size(44, 25);
             lblTest.TabIndex = 0;
-            lblTest.Text = "label1";
+            lblTest.Text = "WIP";
             // 
             // Form1
             // 
