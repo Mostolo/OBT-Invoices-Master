@@ -1,5 +1,8 @@
 ﻿using System.Diagnostics;
 
+/* Breve spiegazione di cosa stiamo facendo qui:
+ il nostro */
+
 if (args.Length < 4)
 {
     Console.WriteLine("Argomenti insufficienti");
@@ -35,3 +38,15 @@ catch (ArgumentException)
 {
     Console.WriteLine("\nIl processo OBT-Invoice-Master non esiste più");
 }
+
+string extractDirectory = Path.Combine(Path.GetTempPath(), "OBT-Update-Extract");
+Console.WriteLine("Cartella temporanea: " +  extractDirectory);
+
+if (Directory.Exists(extractDirectory))
+{
+    Console.WriteLine("oh no, esiste già, aspetta che me ne occupo io");
+    Directory.Delete(extractDirectory, true);
+}
+
+Directory.CreateDirectory(extractDirectory);
+Console.WriteLine("Fatto!\nnuova come non mai!");
