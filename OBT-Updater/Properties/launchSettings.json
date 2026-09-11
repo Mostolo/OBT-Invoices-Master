@@ -2,7 +2,7 @@
   "profiles": {
     "OBT-Updater": {
       "commandName": "Project",
-      "commandLineArgs": "\"pippo.zip\" \"C:\\FintaCartella\" \"41888\" \"finto.exe\""
+      "commandLineArgs": "\"C:\\Users\\mosto\\Desktop\\Cartella di passaggio\\Per copia e incolla.zip\" \"C:\\FintaCartella\" \"41888\" \"finto.exe\""
     }
   }
 }

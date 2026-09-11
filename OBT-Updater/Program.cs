@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO.Compression;
 
 /* Breve spiegazione di cosa stiamo facendo qui:
  il nostro */
@@ -50,3 +51,13 @@ if (Directory.Exists(extractDirectory))
 
 Directory.CreateDirectory(extractDirectory);
 Console.WriteLine("Fatto!\nnuova come non mai!");
+
+if (!File.Exists(zipPath))
+{
+    Console.WriteLine("\nOH NO!\nIl file Zip non esiste!");
+    return;
+}
+
+Console.WriteLine("Estrazione dell'aggiornamento!");
+ZipFile.ExtractToDirectory(zipPath, extractDirectory);
+Console.WriteLine("\nEstrazione completata!");
