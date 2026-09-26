@@ -61,3 +61,21 @@ if (!File.Exists(zipPath))
 Console.WriteLine("Estrazione dell'aggiornamento!");
 ZipFile.ExtractToDirectory(zipPath, extractDirectory);
 Console.WriteLine("\nEstrazione completata!");
+
+string[] extractedFiles = Directory.GetFiles(extractDirectory, "*", SearchOption.AllDirectories);
+//array di stringhe con tutti i file che ha trovato nella cartella scaricata, in ordine di come l'ha trovati
+
+foreach (string file in extractedFiles)
+{
+    string relativePath = Path.GetRelativePath(extractDirectory, file); //path attuale
+    string destination = Path.Combine(targetDirectory, relativePath); //destinazione di dove deve andare
+
+    Console.WriteLine("\nFile trovato:");
+    Console.WriteLine(file);
+
+    Console.WriteLine("Percorso relativo:");
+    Console.WriteLine(relativePath);
+
+    Console.WriteLine("Destinazione:");
+    Console.WriteLine(destination);
+}
