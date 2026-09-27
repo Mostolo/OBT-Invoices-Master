@@ -63,7 +63,7 @@ ZipFile.ExtractToDirectory(zipPath, extractDirectory);
 Console.WriteLine("\nEstrazione completata!");
 
 string[] extractedFiles = Directory.GetFiles(extractDirectory, "*", SearchOption.AllDirectories);
-//array di stringhe con tutti i file che ha trovato nella cartella scaricata, in ordine di come l'ha trovati
+//array di stringhe con tutti i file che ha trovato nella cartella scaricata
 
 foreach (string file in extractedFiles)
 {
@@ -83,7 +83,7 @@ foreach (string file in extractedFiles)
     Console.WriteLine("Destinazione:");
     Console.WriteLine(destination + "\n");
 
-    String? destinationDirectory = Path.GetDirectoryName(destination);
+    string? destinationDirectory = Path.GetDirectoryName(destination);
 
     if (!string.IsNullOrEmpty(destinationDirectory))
     {
@@ -95,3 +95,32 @@ foreach (string file in extractedFiles)
     Console.WriteLine("Copiato!");
 
 }
+
+Console.WriteLine("\nAggiornamento Completato!");
+
+if (Directory.Exists(extractDirectory))
+{
+    Directory.Delete(extractDirectory, true);
+    Console.WriteLine("\nCartella temporanea E L I M I N A T A");
+}
+
+string exePath = Path.Combine(targetDirectory, exeName);
+
+if (!File.Exists(exePath))
+{
+    Console.WriteLine("\nMh, non trovo l'eseguibile da riavviare!");
+    Console.WriteLine(exePath);
+    return;
+}
+
+Console.WriteLine("\nRiavvio del programma");
+
+Process.Start(new ProcessStartInfo
+{
+    FileName = exePath, //Chi?
+    WorkingDirectory = targetDirectory, //Da dove pensa di essere partito?
+    UseShellExecute = true //é stato aperto dal player?
+});
+
+Console.WriteLine("\nprogramma riavviato!");
+
