@@ -68,14 +68,30 @@ string[] extractedFiles = Directory.GetFiles(extractDirectory, "*", SearchOption
 foreach (string file in extractedFiles)
 {
     string relativePath = Path.GetRelativePath(extractDirectory, file); //path attuale
+
+    if (string.Equals(relativePath, "Config.json", StringComparison.OrdinalIgnoreCase))
+    {
+        Console.WriteLine("\nConfig.json, questo non lo sovrascrivo!");
+        continue;
+    }
+
     string destination = Path.Combine(targetDirectory, relativePath); //destinazione di dove deve andare
 
-    Console.WriteLine("\nFile trovato:");
-    Console.WriteLine(file);
-
-    Console.WriteLine("Percorso relativo:");
-    Console.WriteLine(relativePath);
+    Console.WriteLine("\n\n\nFile trovato:");
+    Console.WriteLine(file + "\n");
 
     Console.WriteLine("Destinazione:");
-    Console.WriteLine(destination);
+    Console.WriteLine(destination + "\n");
+
+    String? destinationDirectory = Path.GetDirectoryName(destination);
+
+    if (!string.IsNullOrEmpty(destinationDirectory))
+    {
+        Directory.CreateDirectory(destinationDirectory);
+    }
+
+    File.Copy(file, destination, true);
+
+    Console.WriteLine("Copiato!");
+
 }
