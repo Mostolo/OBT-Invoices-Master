@@ -7,6 +7,8 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Platforms>AnyCPU;x64</Platforms>
+	<Version>0.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,4 +21,14 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="PDFium.forms.x64.v8-xfa" Version="4522.0.6" />
+    <PackageReference Include="PdfiumViewer.Forms" Version="3.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<Compile Remove="OBT-Updater\**\*.cs" />
+  </ItemGroup>
+
+	
 </Project>

@@ -9,7 +9,7 @@ namespace OBT_Invoices_Master.Services
             outputPath = Path.Combine(outputPath, "File da Incollare.CSV");
 
             using StreamWriter writer = new(outputPath);
-            writer.WriteLine("Mittente; Data; Numero; Importo; Imponibile; Metodo pagamento; Scadenza; Pagamento Effettuato; Data Pagamento; Da Pagare");
+            writer.WriteLine("Mittente; Data; Numero; Importo; Imponibile; Metodo pagamento; Scadenza; Pagamento Effettuato; Data Pagamento; Da Pagare; Descrizione Aggiuntiva; Centro di costo; Conto di competenza; Ordine;");
             foreach (Invoice invoice in invoices)
             {
                 writer.WriteLine(string.Join(";",
@@ -21,7 +21,11 @@ namespace OBT_Invoices_Master.Services
                     invoice.MetodoPagamento,
                     invoice.ScadenzaPagamento,
                     invoice.ImportoPagamento,
-                    invoice.DataPagamento
+                    invoice.DataPagamento,
+                    invoice.DaPagare,
+                    invoice.DescrizioneAggiuntiva,
+                    invoice.CentroCosto,
+                    invoice.ContoCompetenza
                     ));
             }
         }

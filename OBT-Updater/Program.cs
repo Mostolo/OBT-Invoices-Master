@@ -1,0 +1,126 @@
+﻿using System.Diagnostics;
+using System.IO.Compression;
+
+/* Breve spiegazione di cosa stiamo facendo qui:
+ il nostro */
+
+if (args.Length < 4)
+{
+    Console.WriteLine("Argomenti insufficienti");
+    return;
+}
+else if (args.Length > 4)
+{
+    Console.WriteLine("Troppi argomenti");
+    return;
+}
+
+string zipPath  = args[0];
+string targetDirectory  = args[1];
+int processId = int.Parse(args[2]);
+string exeName = args[3];
+
+Console.WriteLine("ZIP: " + zipPath);
+Console.WriteLine("Cartella OBT-Invoice-Master: " + targetDirectory);
+Console.WriteLine("PID OBT-Invoice-Master: " + processId);
+Console.WriteLine("EXE OBT-Invoice-Master: " + exeName);
+
+try
+{
+    Process obtProcess = Process.GetProcessById(processId);
+
+    Console.WriteLine("\nOBT-Invoice-Master è ancora aperto\nAttendere che venga chiuso...");
+
+    obtProcess.WaitForExit();
+
+    Console.WriteLine("OBT-Invoice-Master è stato chiuso correttamente!");
+}
+catch (ArgumentException)
+{
+    Console.WriteLine("\nIl processo OBT-Invoice-Master non esiste più");
+}
+
+string extractDirectory = Path.Combine(Path.GetTempPath(), "OBT-Update-Extract");
+Console.WriteLine("Cartella temporanea: " +  extractDirectory);
+
+if (Directory.Exists(extractDirectory))
+{
+    Console.WriteLine("oh no, esiste già, aspetta che me ne occupo io");
+    Directory.Delete(extractDirectory, true);
+}
+
+Directory.CreateDirectory(extractDirectory);
+Console.WriteLine("Fatto!\nnuova come non mai!");
+
+if (!File.Exists(zipPath))
+{
+    Console.WriteLine("\nOH NO!\nIl file Zip non esiste!");
+    return;
+}
+
+Console.WriteLine("Estrazione dell'aggiornamento!");
+ZipFile.ExtractToDirectory(zipPath, extractDirectory);
+Console.WriteLine("\nEstrazione completata!");
+
+string[] extractedFiles = Directory.GetFiles(extractDirectory, "*", SearchOption.AllDirectories);
+//array di stringhe con tutti i file che ha trovato nella cartella scaricata
+
+foreach (string file in extractedFiles)
+{
+    string relativePath = Path.GetRelativePath(extractDirectory, file); //path attuale
+
+    if (string.Equals(relativePath, "Config.json", StringComparison.OrdinalIgnoreCase))
+    {
+        Console.WriteLine("\nConfig.json, questo non lo sovrascrivo!");
+        continue;
+    }
+
+    string destination = Path.Combine(targetDirectory, relativePath); //destinazione di dove deve andare
+
+    Console.WriteLine("\n\n\nFile trovato:");
+    Console.WriteLine(file + "\n");
+
+    Console.WriteLine("Destinazione:");
+    Console.WriteLine(destination + "\n");
+
+    string? destinationDirectory = Path.GetDirectoryName(destination);
+
+    if (!string.IsNullOrEmpty(destinationDirectory))
+    {
+        Directory.CreateDirectory(destinationDirectory);
+    }
+
+    File.Copy(file, destination, true);
+
+    Console.WriteLine("Copiato!");
+
+}
+
+Console.WriteLine("\nAggiornamento Completato!");
+
+if (Directory.Exists(extractDirectory))
+{
+    Directory.Delete(extractDirectory, true);
+    Console.WriteLine("\nCartella temporanea E L I M I N A T A");
+}
+
+string exePath = Path.Combine(targetDirectory, exeName);
+
+if (!File.Exists(exePath))
+{
+    Console.WriteLine("\nMh, non trovo l'eseguibile da riavviare!");
+    Console.WriteLine(exePath);
+    return;
+}
+
+Console.WriteLine("\nRiavvio del programma");
+
+Process.Start(new ProcessStartInfo
+{
+    FileName = exePath, //Chi?
+    WorkingDirectory = targetDirectory, //Da dove pensa di essere partito?
+    UseShellExecute = true //é stato aperto dal player?
+});
+
+Console.WriteLine("\nprogramma riavviato!");
+

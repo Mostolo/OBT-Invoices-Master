@@ -1,4 +1,5 @@
-﻿using OBT_Invoices_Master.Models;
+﻿using OBT_Invoices_Master.Forms;
+using OBT_Invoices_Master.Models;
 
 namespace OBT_Invoices_Master.Services
 {
@@ -36,6 +37,7 @@ namespace OBT_Invoices_Master.Services
                     PdfService.RenamePdf(invoice);
 
                     File.Move(invoice.PdfPath!, Path.Combine(PdfFolder, invoice.PdfName!));
+                    invoice.PdfPath = Path.Combine(PdfFolder, invoice.PdfName!);
                     File.Move(xmlFile, Path.Combine(XmlFolder, fileName));
                 }
                 catch (Exception ex)
@@ -60,7 +62,15 @@ namespace OBT_Invoices_Master.Services
                 MessageBox.Show("tutto è andato bene!");
             }
 
-            CsvService.ExportInvoices(invoices, folderPath);
+            ReviewForm reviewForm = new ReviewForm(invoices);
+
+            reviewForm.ShowDialog();
+
+            if (reviewForm.completed)
+            {
+                CsvService.ExportInvoices(invoices, folderPath);
+            }
+
         }
 
     }

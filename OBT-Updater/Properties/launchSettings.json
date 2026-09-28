@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "OBT-Updater": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Users\\mosto\\Desktop\\FintoZip.zip\" \"C:\\Users\\mosto\\Desktop\\Finta Cartella\" \"41888\" \"test.bat\""
+    }
+  }
+}
