@@ -86,8 +86,9 @@ namespace OBT_Invoices_Master
 
                 string zipPath = await UpdateService.DownloadUpdateAsync(updateInfo.DownloadUrl);
 
-                MessageBox.Show("Aggiornamento scaricato!\n\n" + zipPath, "Download completato");
+                UpdateService.StartUpdater(zipPath);
 
+                Application.Exit();
             }
             else
             {
