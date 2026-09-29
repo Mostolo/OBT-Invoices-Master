@@ -30,6 +30,26 @@ namespace OBT_Invoices_Master.Services
 
             string? tag = document.RootElement.GetProperty("tag_name").GetString();
 
+            #region Assets
+
+            JsonElement assets = document.RootElement.GetProperty("assets");
+
+            string? downloadUrl = null;
+
+            foreach (JsonElement asset in assets.EnumerateArray())
+            {
+                string? assetName = asset.GetProperty("name").GetString();
+
+                if (assetName == "MakiInvoiceManager-win-x64.zip")
+                {
+                    downloadUrl = asset.GetProperty("browser_download_url").GetString();
+
+                    break;
+                }
+            }
+
+            #endregion
+
             return tag;
         }
     }
