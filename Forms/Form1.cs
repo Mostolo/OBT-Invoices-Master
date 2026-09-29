@@ -5,6 +5,7 @@ using System.Drawing.Text;
 using System.Text.Json;
 using System.IO;
 using OBT_Invoices_Master.Forms;
+using System.Xml.Serialization;
 
 namespace OBT_Invoices_Master
 {
@@ -18,6 +19,7 @@ namespace OBT_Invoices_Master
             this.AllowDrop = true;
             this.DragEnter += Form1_DragEnter;
             this.DragDrop += Form1_DragDrop;
+            this.Shown += Form1_Shown;
         }
 
         #region Drag & Drop
@@ -38,6 +40,26 @@ namespace OBT_Invoices_Master
             FolderService.SaveCsv(folder, paths);
         }
         #endregion
+
+        private async void Form1_Shown(Object? sender, EventArgs e)
+        {
+            try
+            {
+                string? latestVersion = await UpdateService.GetLatestStableVersionAsync();
+
+                if (latestVersion is null)
+                {
+                    MessageBox.Show("Nessuna Release stabile trovata...");
+                    return;
+                }
+
+                MessageBox.Show("Ultima versione stabile su GitHub: " + latestVersion, "la tua versione: " + (this.ProductVersion.Split("+"))[0]);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Errore durante il controllo di aggiornamenti:\n" + ex.Message);
+            }
+        }
 
     }
 }
