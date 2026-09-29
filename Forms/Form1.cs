@@ -84,11 +84,23 @@ namespace OBT_Invoices_Master
                     return;
                 }
 
-                string zipPath = await UpdateService.DownloadUpdateAsync(updateInfo.DownloadUrl);
+                try
+                {
+                    string zipPath = await UpdateService.DownloadUpdateAsync(updateInfo.DownloadUrl);
 
-                UpdateService.StartUpdater(zipPath);
+                    UpdateService.StartUpdater(zipPath);
 
-                Application.Exit();
+                    Application.Exit();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Non è stato possibile completare l'aggiornamento!" +
+                        $"Maki Invoice Manager continuerà a funzionare normalmente" +
+                        $"se il problema persiste, contattare Marco LC" +
+                        $"Dettagli: " + ex.Message,
+                        "Errore durante l'aggiornamento!",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
