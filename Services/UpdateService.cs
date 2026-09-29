@@ -6,7 +6,7 @@ namespace OBT_Invoices_Master.Services
 {
     internal class UpdateService
     {
-        public static async Task<UpdateInfo?> GetLatestStableVersionAsync()
+        public static async Task<UpdateInfo?> GetLatestStableUpdateAsync()
         {
             using HttpClient client = new();
 
