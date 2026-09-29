@@ -43,9 +43,12 @@ namespace OBT_Invoices_Master
 
         private async void Form1_Shown(Object? sender, EventArgs e)
         {
+            string currentVersionText = (this.ProductVersion.Split("+"))[0];
+            string? latestVersion;
+
             try
             {
-                string? latestVersion = await UpdateService.GetLatestStableVersionAsync();
+                latestVersion = await UpdateService.GetLatestStableVersionAsync();
 
                 if (latestVersion is null)
                 {
@@ -53,13 +56,28 @@ namespace OBT_Invoices_Master
                     return;
                 }
 
-                MessageBox.Show("Ultima versione stabile su GitHub: " + latestVersion, "la tua versione: " + (this.ProductVersion.Split("+"))[0]);
+                MessageBox.Show("Ultima versione stabile su GitHub: " + latestVersion, "la tua versione: " + currentVersionText);
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Errore durante il controllo di aggiornamenti:\n" + ex.Message);
+                MessageBox.Show("Errore durante il controllo di aggiornamenti:\n" + ex.Message, "ERROREEE");
+
+                return;
+            }
+
+            Version currentVersion = new(currentVersionText);
+            Version githubVersion = new(latestVersion);
+
+            if (githubVersion > currentVersion)
+            {
+                MessageBox.Show("È disponibile un aggiornamento!\n\nVersione installata: " + currentVersion + "\nNuova versione: " + githubVersion,
+                    "Aggiornati!");
+            }
+            else
+            {
+                MessageBox.Show("Maki Invoice Manager è aggiornato all'ultima versione disponibile\n\nVersione installata: " + currentVersion,
+                    "Sei aggiornato?");
             }
         }
-
     }
 }
