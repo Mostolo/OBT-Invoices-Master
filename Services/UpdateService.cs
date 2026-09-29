@@ -58,7 +58,10 @@ namespace OBT_Invoices_Master.Services
 
         public static async Task<string> DownloadUpdateAsync(string downloadUrl)
         {
-            using HttpClient client = new();
+            using HttpClient client = new()
+            {
+                Timeout = TimeSpan.FromMinutes(10)
+            };
 
             client.DefaultRequestHeaders.UserAgent.ParseAdd("Maki-Invoice-Manager");
 
