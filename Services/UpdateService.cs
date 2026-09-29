@@ -1,6 +1,7 @@
-﻿using System.Net;
+﻿using OBT_Invoices_Master.Models;
+using System.Diagnostics;
+using System.Net;
 using System.Text.Json;
-using OBT_Invoices_Master.Models;
 
 namespace OBT_Invoices_Master.Services
 {
@@ -53,6 +54,69 @@ namespace OBT_Invoices_Master.Services
                 Version = tag,
                 DownloadUrl = downloadUrl
             };
+        }
+
+        public static async Task<string> DownloadUpdateAsync(string downloadUrl)
+        {
+            using HttpClient client = new();
+
+            client.DefaultRequestHeaders.UserAgent.ParseAdd("Maki-Invoice-Manager");
+
+            string zipPath = Path.Combine(Path.GetTempPath(), "MakiInvoiceManager-update.zip");
+
+            byte[] zipBytes = await client.GetByteArrayAsync(downloadUrl);
+
+            await File.WriteAllBytesAsync(zipPath, zipBytes);
+
+            return zipPath;
+        }
+
+        public static void StartUpdater(string zipPath)
+        {
+            string targetDirectory = AppContext.BaseDirectory;
+
+            string updaterSourcePath = Path.Combine(
+                targetDirectory,
+                "OBT-Updater.exe"
+            );
+
+            string tempUpdaterPath = Path.Combine(
+                Path.GetTempPath(),
+                "OBT-Updater.exe"
+            );
+
+            if (!File.Exists(updaterSourcePath))
+            {
+                throw new FileNotFoundException(
+                    "Non trovo OBT-Updater.exe",
+                    updaterSourcePath
+                );
+            }
+
+            File.Copy(
+                updaterSourcePath,
+                tempUpdaterPath,
+                true
+            );
+
+            int processId = Environment.ProcessId;
+
+            string exeName = Path.GetFileName(
+                Environment.ProcessPath!
+            );
+
+            ProcessStartInfo startInfo = new()
+            {
+                FileName = tempUpdaterPath,
+                UseShellExecute = true
+            };
+
+            startInfo.ArgumentList.Add(zipPath);
+            startInfo.ArgumentList.Add(targetDirectory);
+            startInfo.ArgumentList.Add(processId.ToString());
+            startInfo.ArgumentList.Add(exeName);
+
+            Process.Start(startInfo);
         }
     }
 }

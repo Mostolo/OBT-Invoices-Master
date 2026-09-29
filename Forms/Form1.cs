@@ -69,8 +69,25 @@ namespace OBT_Invoices_Master
 
             if (githubVersion > currentVersion)
             {
-                MessageBox.Show("È disponibile un aggiornamento!\n\nVersione installata: " + currentVersion + "\nNuova versione: " + githubVersion,
-                    "Aggiornati!");
+                DialogResult result = MessageBox.Show("È disponibile un aggiornamento!\n\nVersione installata: " + currentVersion + "\nNuova versione: " + githubVersion,
+                    "Aggiornati!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                
+                if (result != DialogResult.Yes)
+                {
+                    return;
+                }
+
+                if (updateInfo.DownloadUrl is null)
+                {
+                    MessageBox.Show("Impossibile ricavare il file di aggiornamento\nContattare Marco LC", "Errore nell'aggiornamento!");
+
+                    return;
+                }
+
+                string zipPath = await UpdateService.DownloadUpdateAsync(updateInfo.DownloadUrl);
+
+                MessageBox.Show("Aggiornamento scaricato!\n\n" + zipPath, "Download completato");
+
             }
             else
             {
