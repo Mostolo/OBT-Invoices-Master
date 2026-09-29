@@ -56,8 +56,6 @@ namespace OBT_Invoices_Master
                     MessageBox.Show("Nessuna Release stabile trovata...");
                     return;
                 }
-
-                MessageBox.Show("Ultima versione stabile su GitHub: " + updateInfo.Version, "la tua versione: " + currentVersionText);
             }
             catch(Exception ex)
             {
