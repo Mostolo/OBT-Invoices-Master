@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.IO;
 using OBT_Invoices_Master.Forms;
 using System.Xml.Serialization;
+using OBT_Invoices_Master.Models;
 
 namespace OBT_Invoices_Master
 {
@@ -44,19 +45,19 @@ namespace OBT_Invoices_Master
         private async void Form1_Shown(Object? sender, EventArgs e)
         {
             string currentVersionText = (this.ProductVersion.Split("+"))[0];
-            string? latestVersion;
+            UpdateInfo? latestVersion;
 
             try
             {
                 latestVersion = await UpdateService.GetLatestStableVersionAsync();
 
-                if (latestVersion is null)
+                if (latestVersion.Version is null)
                 {
                     MessageBox.Show("Nessuna Release stabile trovata...");
                     return;
                 }
 
-                MessageBox.Show("Ultima versione stabile su GitHub: " + latestVersion, "la tua versione: " + currentVersionText);
+                MessageBox.Show("Ultima versione stabile su GitHub: " + latestVersion.Version, "la tua versione: " + currentVersionText);
             }
             catch(Exception ex)
             {
@@ -66,7 +67,7 @@ namespace OBT_Invoices_Master
             }
 
             Version currentVersion = new(currentVersionText);
-            Version githubVersion = new(latestVersion);
+            Version githubVersion = new(latestVersion.Version);
 
             if (githubVersion > currentVersion)
             {

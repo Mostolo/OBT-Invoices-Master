@@ -1,14 +1,12 @@
-﻿//using System.Reflection;
-//using System.Text.Json;
-
-using System.Net;
+﻿using System.Net;
 using System.Text.Json;
+using OBT_Invoices_Master.Models;
 
 namespace OBT_Invoices_Master.Services
 {
     internal class UpdateService
     {
-        public static async Task<string?> GetLatestStableVersionAsync()
+        public static async Task<UpdateInfo?> GetLatestStableVersionAsync()
         {
             using HttpClient client = new();
 
@@ -50,7 +48,11 @@ namespace OBT_Invoices_Master.Services
 
             #endregion
 
-            return tag;
+            return new UpdateInfo
+            {
+                Version = tag,
+                DownloadUrl = downloadUrl
+            };
         }
     }
 }
