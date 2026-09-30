@@ -56,7 +56,7 @@ namespace OBT_Invoices_Master.Services
             };
         }
 
-        public static async Task<string> DownloadUpdateAsync(string downloadUrl)
+        public static async Task<string> DownloadUpdateAsync(string downloadUrl, IProgress<DownloadProgress>? progress = null)
         {
             using HttpClient client = new()
             {
@@ -67,9 +67,56 @@ namespace OBT_Invoices_Master.Services
 
             string zipPath = Path.Combine(Path.GetTempPath(), "MakiInvoiceManager-update.zip");
 
-            byte[] zipBytes = await client.GetByteArrayAsync(downloadUrl);
 
-            await File.WriteAllBytesAsync(zipPath, zipBytes);
+            using HttpResponseMessage response = await client.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead);
+
+            response.EnsureSuccessStatusCode();
+
+            long? totalBytes = response.Content.Headers.ContentLength;
+
+            await using Stream downloadStream = await response.Content.ReadAsStreamAsync();
+
+            await using FileStream fileStream = new(zipPath, FileMode.Create, FileAccess.Write, FileShare.None, 81920, true);
+
+            byte[] buffer = new byte[81920];
+
+            long downloadBytes = 0;
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            while (true)
+            {
+                int bytesRead = await downloadStream.ReadAsync(buffer.AsMemory(0, buffer.Length));
+
+                if (bytesRead == 0)
+                {
+                    break;
+                }
+
+                await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead));
+
+                downloadBytes += bytesRead;
+
+                double bytesPerSecond = stopwatch.Elapsed.TotalSeconds > 0 ? downloadBytes / stopwatch.Elapsed.TotalSeconds : 0;
+
+                TimeSpan? remaining = null;
+
+                if (totalBytes.HasValue && bytesPerSecond > 0)
+                {
+                    long remainingBytes = totalBytes.Value - downloadBytes;
+
+                    remaining = TimeSpan.FromSeconds(remainingBytes / bytesPerSecond);
+                }
+
+                progress?.Report(new DownloadProgress
+                {
+                    BytesDownloaded = downloadBytes,
+                    TotalBytes = totalBytes,
+                    BytesPerSecond = bytesPerSecond,
+                    Elapsed = stopwatch.Elapsed,
+                    Remaining = remaining
+                });
+            }
 
             return zipPath;
         }

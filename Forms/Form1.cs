@@ -95,11 +95,13 @@ namespace OBT_Invoices_Master
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Non è stato possibile completare l'aggiornamento!" +
-                        $"Maki Invoice Manager continuerà a funzionare normalmente" +
-                        $"se il problema persiste, contattare Marco LC" +
-                        $"Dettagli: " + ex.Message,
+                        $"\nMaki Invoice Manager continuerà a funzionare normalmente" +
+                        $"\nse il problema persiste, contattare Marco LC" +
+                        $"\nDettagli: " + ex.Message,
                         "Errore durante l'aggiornamento!",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
                 }
             }
             else
