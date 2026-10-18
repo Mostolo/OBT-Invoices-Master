@@ -22,6 +22,8 @@ namespace OBT_Invoices_Master.Forms
         {
             InitializeComponent();
 
+            WindowState = FormWindowState.Maximized;
+
             DenominazioneField = new InvoiceFieldControl();
             DenominazioneField.Title = "Mittente";
             DenominazioneField.Dock = DockStyle.Top;

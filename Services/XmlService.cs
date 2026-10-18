@@ -73,6 +73,7 @@ namespace OBT_Invoices_Master.Services
                     return "Contanti";
 
                 case "MP19":
+                case "MP20":
                 case "MP21":
                     return "Sepa";
 
