@@ -49,6 +49,8 @@
             panel1 = new Panel();
             pdfViewer = new PdfiumViewer.PdfViewer();
             pnlInvoiceData = new Panel();
+            grpUserFields = new GroupBox();
+            grpAutomaticFields = new GroupBox();
             txtCentroCosto = new TextBox();
             txtContoCompetenza = new TextBox();
             txtDescrizioneAggiuntiva = new TextBox();
@@ -142,7 +144,7 @@
             txtData.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtData.Location = new Point(4, 128);
             txtData.Name = "txtData";
-            txtData.Size = new Size(365, 31);
+            txtData.Size = new Size(398, 31);
             txtData.TabIndex = 10;
             // 
             // txtNumero
@@ -150,7 +152,7 @@
             txtNumero.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtNumero.Location = new Point(4, 190);
             txtNumero.Name = "txtNumero";
-            txtNumero.Size = new Size(365, 31);
+            txtNumero.Size = new Size(398, 31);
             txtNumero.TabIndex = 11;
             // 
             // txtTotale
@@ -158,7 +160,7 @@
             txtTotale.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtTotale.Location = new Point(4, 252);
             txtTotale.Name = "txtTotale";
-            txtTotale.Size = new Size(365, 31);
+            txtTotale.Size = new Size(398, 31);
             txtTotale.TabIndex = 12;
             // 
             // txtImponibile
@@ -166,7 +168,7 @@
             txtImponibile.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtImponibile.Location = new Point(4, 314);
             txtImponibile.Name = "txtImponibile";
-            txtImponibile.Size = new Size(365, 31);
+            txtImponibile.Size = new Size(398, 31);
             txtImponibile.TabIndex = 13;
             // 
             // txtMetodoPagamento
@@ -174,7 +176,7 @@
             txtMetodoPagamento.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtMetodoPagamento.Location = new Point(4, 376);
             txtMetodoPagamento.Name = "txtMetodoPagamento";
-            txtMetodoPagamento.Size = new Size(365, 31);
+            txtMetodoPagamento.Size = new Size(398, 31);
             txtMetodoPagamento.TabIndex = 14;
             // 
             // txtScadenzaPagamento
@@ -182,7 +184,7 @@
             txtScadenzaPagamento.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtScadenzaPagamento.Location = new Point(4, 438);
             txtScadenzaPagamento.Name = "txtScadenzaPagamento";
-            txtScadenzaPagamento.Size = new Size(365, 31);
+            txtScadenzaPagamento.Size = new Size(398, 31);
             txtScadenzaPagamento.TabIndex = 15;
             // 
             // txtDataPagamento
@@ -190,7 +192,7 @@
             txtDataPagamento.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtDataPagamento.Location = new Point(4, 500);
             txtDataPagamento.Name = "txtDataPagamento";
-            txtDataPagamento.Size = new Size(365, 31);
+            txtDataPagamento.Size = new Size(398, 31);
             txtDataPagamento.TabIndex = 16;
             // 
             // btnPrevious
@@ -256,6 +258,8 @@
             // pnlInvoiceData
             // 
             pnlInvoiceData.AutoScroll = true;
+            pnlInvoiceData.Controls.Add(grpUserFields);
+            pnlInvoiceData.Controls.Add(grpAutomaticFields);
             pnlInvoiceData.Controls.Add(txtCentroCosto);
             pnlInvoiceData.Controls.Add(txtContoCompetenza);
             pnlInvoiceData.Controls.Add(txtDescrizioneAggiuntiva);
@@ -283,12 +287,32 @@
             pnlInvoiceData.Size = new Size(378, 733);
             pnlInvoiceData.TabIndex = 0;
             // 
+            // grpUserFields
+            // 
+            grpUserFields.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            grpUserFields.Location = new Point(36, 147);
+            grpUserFields.Name = "grpUserFields";
+            grpUserFields.Size = new Size(300, 150);
+            grpUserFields.TabIndex = 20;
+            grpUserFields.TabStop = false;
+            grpUserFields.Text = "Dati da completare";
+            // 
+            // grpAutomaticFields
+            // 
+            grpAutomaticFields.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            grpAutomaticFields.Location = new Point(77, 41);
+            grpAutomaticFields.Name = "grpAutomaticFields";
+            grpAutomaticFields.Size = new Size(200, 100);
+            grpAutomaticFields.TabIndex = 0;
+            grpAutomaticFields.TabStop = false;
+            grpAutomaticFields.Text = "Dati estratti automaticamente";
+            // 
             // txtCentroCosto
             // 
             txtCentroCosto.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtCentroCosto.Location = new Point(4, 624);
             txtCentroCosto.Name = "txtCentroCosto";
-            txtCentroCosto.Size = new Size(365, 31);
+            txtCentroCosto.Size = new Size(398, 31);
             txtCentroCosto.TabIndex = 18;
             // 
             // txtContoCompetenza
@@ -296,7 +320,7 @@
             txtContoCompetenza.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtContoCompetenza.Location = new Point(4, 686);
             txtContoCompetenza.Name = "txtContoCompetenza";
-            txtContoCompetenza.Size = new Size(365, 31);
+            txtContoCompetenza.Size = new Size(398, 31);
             txtContoCompetenza.TabIndex = 19;
             // 
             // txtDescrizioneAggiuntiva
@@ -304,7 +328,7 @@
             txtDescrizioneAggiuntiva.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtDescrizioneAggiuntiva.Location = new Point(4, 562);
             txtDescrizioneAggiuntiva.Name = "txtDescrizioneAggiuntiva";
-            txtDescrizioneAggiuntiva.Size = new Size(365, 31);
+            txtDescrizioneAggiuntiva.Size = new Size(398, 31);
             txtDescrizioneAggiuntiva.TabIndex = 17;
             // 
             // lblContoCompetenza
@@ -395,5 +419,7 @@
         private Label lblContoCompetenza;
         private Label lblCentroCosto;
         private Label lblDescrizioneAggiuntiva;
+        private GroupBox grpAutomaticFields;
+        private GroupBox grpUserFields;
     }
 }

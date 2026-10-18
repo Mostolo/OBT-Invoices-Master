@@ -29,7 +29,7 @@ namespace OBT_Invoices_Master.Forms
             DenominazioneField.Dock = DockStyle.Top;
             pnlInvoiceData.Controls.Add(DenominazioneField);
 
-           
+
             this.invoices = invoices;
 
             if (this.invoices.Count == 0)
