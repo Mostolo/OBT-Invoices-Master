@@ -27,7 +27,7 @@ namespace OBT_Invoices_Master.Forms
             DenominazioneField = new InvoiceFieldControl();
             DenominazioneField.Title = "Mittente";
             DenominazioneField.Dock = DockStyle.Top;
-            pnlInvoiceData.Controls.Add(DenominazioneField);
+            grpAutomaticFields.Controls.Add(DenominazioneField);
 
 
             this.invoices = invoices;
