@@ -17,6 +17,7 @@ namespace OBT_Invoices_Master.Forms
         private int currentIndex = 0;
 
         private InvoiceFieldControl DenominazioneField;
+        private InvoiceFieldControl DataField;
         public bool completed { get; private set; }
         public ReviewForm(List<Invoice> invoices)
         {
@@ -28,6 +29,11 @@ namespace OBT_Invoices_Master.Forms
             DenominazioneField.Title = "Mittente";
             DenominazioneField.Dock = DockStyle.Top;
             grpAutomaticFields.Controls.Add(DenominazioneField);
+
+            DataField = new InvoiceFieldControl();
+            DataField.Title = "Data";
+            DataField.Dock = DockStyle.Top;
+            grpAutomaticFields.Controls.Add(DataField);
 
 
             this.invoices = invoices;
@@ -80,8 +86,9 @@ namespace OBT_Invoices_Master.Forms
 
             //txtDenominazione.Text = invoice.Denominazione ?? "";
             DenominazioneField.Value = invoice.Denominazione ?? "";
+            DataField.Value = invoice.Data ?? "";
 
-            txtData.Text = invoice.Data ?? "";
+            //txtData.Text = invoice.Data ?? "";
             txtNumero.Text = invoice.Numero ?? "";
             txtTotale.Text = invoice.Totale?.ToString() ?? "";
             txtImponibile.Text = invoice.Imponibile?.ToString() ?? "";
@@ -106,8 +113,9 @@ namespace OBT_Invoices_Master.Forms
 
             //invoice.Denominazione = txtDenominazione.Text;
             invoice.Denominazione = DenominazioneField.Value;
+            invoice.Data = DataField.Value;
 
-            invoice.Data = txtData.Text;
+            //invoice.Data = txtData.Text;
             invoice.Numero = txtNumero.Text;
             invoice.MetodoPagamento = txtMetodoPagamento.Text;
             invoice.ScadenzaPagamento = txtScadenzaPagamento.Text;
@@ -125,6 +133,5 @@ namespace OBT_Invoices_Master.Forms
                 invoice.Imponibile = imponibile;
             }
         }
-
     }
 }
