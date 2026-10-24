@@ -102,6 +102,7 @@ namespace OBT_Invoices_Master.Forms
             TotaleField.Value = invoice.Totale.ToString() ?? "";
             ImponibileField.Value = invoice.Imponibile.ToString() ?? "";
             MetodoPagamentoField.Value = invoice.MetodoPagamento ?? "";
+            ScadenzaPagamentoField.Value = invoice.ScadenzaPagamento ?? "";
             DataPagamentoField.Value = invoice.DataPagamento ?? "";
             DescrizioneAggiuntivaField.Value = invoice.DescrizioneAggiuntiva ?? "";
             CentroCostoField.Value = invoice.CentroCosto ?? "";
@@ -122,6 +123,8 @@ namespace OBT_Invoices_Master.Forms
             invoice.Denominazione = DenominazioneField.Value;
             invoice.Data = DataField.Value;
             invoice.Numero = NumeroField.Value;
+            //invoice.Totale = TotaleField.Value;      li ho commentati perché sono stringhe e non decimal, sotto correggo
+            //invoice.Imponibile = ImponibileField.Value;
             invoice.MetodoPagamento = MetodoPagamentoField.Value;
             invoice.ScadenzaPagamento = ScadenzaPagamentoField.Value;
             invoice.DataPagamento = DataPagamentoField.Value;
@@ -129,15 +132,18 @@ namespace OBT_Invoices_Master.Forms
             invoice.CentroCosto = CentroCostoField.Value;
             invoice.ContoCompetenza = ContoCompetenzaField.Value;
 
+            //qui sotto portiamo le string in decimal
+            if (decimal.TryParse(TotaleField.Value, out decimal Totale))
+            {
+                invoice.Totale = Totale;
+            } else { MessageBox.Show("Il valore messo a Totale non è accettato"); }
 
-            //if (decimal.TryParse(Totale.Text, out decimal totale)) //out da capire
-            //{
-            //    invoice.Totale = totale;
-            //}
-            //if (decimal.TryParse(txtImponibile.Text, out decimal imponibile))
-            //{
-            //    invoice.Imponibile = imponibile;
-            //}
+            if (decimal.TryParse(ImponibileField.Value, out decimal Imponibile))
+            {
+                invoice.Imponibile = Imponibile;
+            }
+            else { MessageBox.Show("Il valore messo a Imponibile non è accettato"); }
+
         }
 
         private InvoiceFieldControl SetField(string Title, GroupBox Group)
