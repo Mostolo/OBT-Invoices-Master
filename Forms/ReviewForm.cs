@@ -17,6 +17,7 @@ namespace OBT_Invoices_Master.Forms
         private List<Invoice> invoices;
         private int currentIndex = 0;
 
+
         private InvoiceFieldControl DenominazioneField;
         private InvoiceFieldControl DataField;
         private InvoiceFieldControl NumeroField;
@@ -147,6 +148,8 @@ namespace OBT_Invoices_Master.Forms
             Field.Title = Title;
             Field.Dock = DockStyle.Top;
             Group.Controls.Add(Field);
+
+            Group.Controls.SetChildIndex(Field, 0);
 
             return Field;
         }
