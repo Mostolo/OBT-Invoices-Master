@@ -36,28 +36,17 @@ namespace OBT_Invoices_Master.Forms
 
             WindowState = FormWindowState.Maximized;
 
-            SetField(DenominazioneField, "Mittente", grpAutomaticFields);
-            SetField(DataField, "Data", grpAutomaticFields);
-            SetField(NumeroField, "Numero", grpAutomaticFields);
-            SetField(TotaleField, "Data", grpAutomaticFields);
-            SetField(ImponibileField, "Data", grpAutomaticFields);
-            SetField(MetodoPagamentoField, "Data", grpAutomaticFields);
-            SetField(ScadenzaPagamentoField, "Data", grpAutomaticFields);
-            SetField(DataPagamentoField, "Data", grpAutomaticFields);
-            SetField(DescrizioneAggiuntivaField, "Data", grpUserFields);
-            SetField(CentroCostoField, "Data", grpUserFields);
-            SetField(ContoCompetenzaField, "Data", grpUserFields);
-
-            //DenominazioneField = new InvoiceFieldControl();
-            //DenominazioneField.Title = "Mittente";
-            //DenominazioneField.Dock = DockStyle.Top;
-            //grpAutomaticFields.Controls.Add(DenominazioneField);
-
-            //DataField = new InvoiceFieldControl();
-            //DataField.Title = "Data";
-            //DataField.Dock = DockStyle.Top;
-            //grpAutomaticFields.Controls.Add(DataField);
-
+            DenominazioneField = SetField("Mittente", grpAutomaticFields);
+            DataField = SetField("Data", grpAutomaticFields);
+            NumeroField = SetField("Numero", grpAutomaticFields);
+            TotaleField = SetField("Totale", grpAutomaticFields);
+            ImponibileField = SetField("Imponibile", grpAutomaticFields);
+            MetodoPagamentoField = SetField("Metodo Pagamento", grpAutomaticFields);
+            ScadenzaPagamentoField = SetField("Scadenza Pagamento", grpAutomaticFields);
+            DataPagamentoField = SetField("Data Pagamento", grpAutomaticFields);
+            DescrizioneAggiuntivaField = SetField("Descrizione Aggiuntiva", grpUserFields);
+            CentroCostoField = SetField("Centro Costo", grpUserFields);
+            ContoCompetenzaField = SetField("Conto Competenza", grpUserFields);
 
             this.invoices = invoices;
 
@@ -117,19 +106,6 @@ namespace OBT_Invoices_Master.Forms
             CentroCostoField.Value = invoice.CentroCosto ?? "";
             ContoCompetenzaField.Value = invoice.ContoCompetenza ?? "";
 
-
-            //txtDenominazione.Text = invoice.Denominazione ?? "";
-            //txtData.Text = invoice.Data ?? "";
-            //txtNumero.Text = invoice.Numero ?? "";
-            //txtTotale.Text = invoice.Totale?.ToString() ?? "";
-            //txtImponibile.Text = invoice.Imponibile?.ToString() ?? "";
-            //txtMetodoPagamento.Text = invoice.MetodoPagamento ?? "";
-            //txtScadenzaPagamento.Text = invoice.ScadenzaPagamento ?? "";
-            //txtDataPagamento.Text = invoice.DataPagamento ?? "";
-            //txtDescrizioneAggiuntiva.Text = invoice.DescrizioneAggiuntiva ?? "";
-            //txtCentroCosto.Text = invoice.CentroCosto ?? "";
-            //txtContoCompetenza.Text = invoice.ContoCompetenza ?? "";
-
             lblProgress.Text = $"Fattura {currentIndex + 1} di {invoices.Count}";
             //to be ordered    
             pdfViewer.Document = PdfDocument.Load(invoice.PdfPath);
@@ -152,15 +128,6 @@ namespace OBT_Invoices_Master.Forms
             invoice.CentroCosto = CentroCostoField.Value;
             invoice.ContoCompetenza = ContoCompetenzaField.Value;
 
-            //invoice.Denominazione = txtDenominazione.Text;
-            //invoice.Data = txtData.Text;
-            //invoice.Numero = txtNumero.Text;
-            //invoice.MetodoPagamento = txtMetodoPagamento.Text;
-            //invoice.ScadenzaPagamento = txtScadenzaPagamento.Text;
-            //invoice.DataPagamento = txtDataPagamento.Text;
-            //invoice.DescrizioneAggiuntiva = txtDescrizioneAggiuntiva.Text;
-            //invoice.CentroCosto = txtCentroCosto.Text;
-            //invoice.ContoCompetenza = txtContoCompetenza.Text;
 
             //if (decimal.TryParse(Totale.Text, out decimal totale)) //out da capire
             //{
@@ -172,12 +139,16 @@ namespace OBT_Invoices_Master.Forms
             //}
         }
 
-        private void SetField(InvoiceFieldControl Field, string Title, GroupBox Group)
+        private InvoiceFieldControl SetField(string Title, GroupBox Group)
         {
+            InvoiceFieldControl Field;
+
             Field = new InvoiceFieldControl();
             Field.Title = Title;
             Field.Dock = DockStyle.Top;
             Group.Controls.Add(Field);
+
+            return Field;
         }
     }
 }
