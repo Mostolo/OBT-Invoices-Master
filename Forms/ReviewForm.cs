@@ -57,38 +57,53 @@ namespace OBT_Invoices_Master.Forms
                 return;
             }
 
+            progressBar.Maximum = invoices.Count;
+
             ShowInvoice();
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            SaveCurrentInvoice();
+            bool canISave = SaveCurrentInvoice();
 
-            if (currentIndex < invoices.Count - 1)
+            if (canISave == false)
             {
-                currentIndex++;
-                ShowInvoice();
+                return;
             }
             else
             {
-                completed = true;
-                MessageBox.Show("Hai terminato tutte le fatture!", "Complimenti!");
-                //Close(); 
+                if (currentIndex < invoices.Count - 1)
+                {
+                    currentIndex++;
+                    ShowInvoice();
+                }
+                else
+                {
+                    completed = true;
+                    MessageBox.Show("Hai terminato tutte le fatture!", "Complimenti!");
+                    //Close(); lo aggiungo quando mi sento tranquillo ahahahah
+                }
             }
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            SaveCurrentInvoice();
-
-            if (currentIndex > 0)
+            bool canISave = SaveCurrentInvoice();
+            if (!canISave)
             {
-                currentIndex--;
-                ShowInvoice();
+                return;
             }
             else
             {
-                MessageBox.Show("Non ci sono fatture li...", "Dove vuoi andare?");
+                if (currentIndex > 0)
+                {
+                    currentIndex--;
+                    ShowInvoice();
+                }
+                else
+                {
+                    MessageBox.Show("Non ci sono fatture li...", "Dove vuoi andare?");
+                }
             }
         }
 
@@ -109,22 +124,43 @@ namespace OBT_Invoices_Master.Forms
             ContoCompetenzaField.Value = invoice.ContoCompetenza ?? "";
 
             lblProgress.Text = $"Fattura {currentIndex + 1} di {invoices.Count}";
+            progressBar.Value = currentIndex;
             //to be ordered    
             pdfViewer.Document = PdfDocument.Load(invoice.PdfPath);
 
         }
 
 
-        private void SaveCurrentInvoice()
+        private bool SaveCurrentInvoice()
         {
             Invoice invoice = invoices[currentIndex];
+            bool canISave;
 
+            //qui sotto portiamo le string in decimal
+            if (decimal.TryParse(TotaleField.Value, out decimal Totale))
+            {
+                invoice.Totale = Totale;
+            }
+            else
+            {
+                MessageBox.Show("Il valore messo a Totale non è accettato", "Errore!");
+                return canISave = false;
+            }
 
+            if (decimal.TryParse(ImponibileField.Value, out decimal Imponibile))
+            {
+                invoice.Imponibile = Imponibile;
+            }
+            else
+            {
+                MessageBox.Show("Il valore messo a Imponibile non è accettato", "Errore!");
+                return canISave = false;
+            }
+
+            //qui invece quelle normali
             invoice.Denominazione = DenominazioneField.Value;
             invoice.Data = DataField.Value;
             invoice.Numero = NumeroField.Value;
-            //invoice.Totale = TotaleField.Value;      li ho commentati perché sono stringhe e non decimal, sotto correggo
-            //invoice.Imponibile = ImponibileField.Value;
             invoice.MetodoPagamento = MetodoPagamentoField.Value;
             invoice.ScadenzaPagamento = ScadenzaPagamentoField.Value;
             invoice.DataPagamento = DataPagamentoField.Value;
@@ -132,18 +168,7 @@ namespace OBT_Invoices_Master.Forms
             invoice.CentroCosto = CentroCostoField.Value;
             invoice.ContoCompetenza = ContoCompetenzaField.Value;
 
-            //qui sotto portiamo le string in decimal
-            if (decimal.TryParse(TotaleField.Value, out decimal Totale))
-            {
-                invoice.Totale = Totale;
-            } else { MessageBox.Show("Il valore messo a Totale non è accettato"); }
-
-            if (decimal.TryParse(ImponibileField.Value, out decimal Imponibile))
-            {
-                invoice.Imponibile = Imponibile;
-            }
-            else { MessageBox.Show("Il valore messo a Imponibile non è accettato"); }
-
+            return canISave = true;
         }
 
         private InvoiceFieldControl SetField(string Title, GroupBox Group)

@@ -33,6 +33,7 @@
             btnNext = new Button();
             splitContainer1 = new SplitContainer();
             panel1 = new Panel();
+            progressBar = new ProgressBar();
             pdfViewer = new PdfiumViewer.PdfViewer();
             pnlInvoiceData = new Panel();
             grpUserFields = new GroupBox();
@@ -50,7 +51,7 @@
             // 
             lblProgress.Anchor = AnchorStyles.None;
             lblProgress.AutoSize = true;
-            lblProgress.Location = new Point(331, 11);
+            lblProgress.Location = new Point(327, 0);
             lblProgress.Name = "lblProgress";
             lblProgress.Size = new Size(77, 25);
             lblProgress.TabIndex = 0;
@@ -98,6 +99,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(progressBar);
             panel1.Controls.Add(btnPrevious);
             panel1.Controls.Add(btnNext);
             panel1.Controls.Add(lblProgress);
@@ -106,6 +108,16 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(732, 46);
             panel1.TabIndex = 0;
+            // 
+            // progressBar
+            // 
+            progressBar.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            progressBar.Location = new Point(174, 25);
+            progressBar.Name = "progressBar";
+            progressBar.Size = new Size(381, 18);
+            progressBar.Step = 1;
+            progressBar.Style = ProgressBarStyle.Continuous;
+            progressBar.TabIndex = 22;
             // 
             // pdfViewer
             // 
@@ -191,5 +203,6 @@
         private Label lblInvoiceDataTitle;
         private GroupBox grpAutomaticFields;
         private GroupBox grpUserFields;
+        private ProgressBar progressBar;
     }
 }
